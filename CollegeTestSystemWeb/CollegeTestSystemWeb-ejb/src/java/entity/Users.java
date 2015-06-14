@@ -75,6 +75,10 @@ public class Users implements Serializable {
         this.name = name;
     }
 
+    public Users(String login, String password, String name, int userType) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getUsersid() {
         return usersid;
     }

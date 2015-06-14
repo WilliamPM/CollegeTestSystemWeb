@@ -5,8 +5,13 @@
  */
 package persistence;
 
+import entity.UserRepositoryLocal;
+import entity.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -14,8 +19,21 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class UserRepository {
+public class UserRepository implements UserRepositoryLocal{
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @PersistenceContext
+    private EntityManager em;
+    
+    @Override
+    public List<Users> getUsers() {
+        return em.createNamedQuery("Users.findAll").getResultList();
+    }
+
+    @Override
+    public Users create(String login, String password, String name, int userType) {
+        Users user = new Users(login, password, name, userType);
+        em.persist(user);
+        return user;
+    }
+    
 }
